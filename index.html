@@ -387,7 +387,31 @@
 
   <h1>Home</h1>
 
-
+<p>SWE-ReX is a runtime for interacting with sandboxed shell environments, allowing to effortlessly let your AI agent run anything from <code>ls</code> to interactive <code>pdb</code> sessions.
+Whether commands are executed locally or remotely in docker containers, on AWS, modal, or something else, your code remains the same.</p>
+<p>Let's take a look how it works:</p>
+<ol>
+<li>Your central entry point is one of the <a href="deployments/#swerex.deployments.AbstractDeployment"><code>Deployment</code> classes</a>, depending on where your code should run. </li>
+<li>Your <code>Deployment</code> instances allows your to start your docker container, AWS instance, or whatever at the push of a button. That's right, no more fiddeling with the AWS console!</li>
+<li>After the <code>Deployment</code> has started your container <em>somewhere</em>, you are handed a <a href="runtimes/#swerex.runtime.remote.RemoteRuntime"><code>RemoteRuntime</code> instance</a>.
+  This is your main interface for interacting with the environment. You can use it start new shell or interactive sessions, read and write files, execute one-off commands, etc.</li>
+</ol>
+<p><a class="glightbox" href="assets/architecture.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="architecture" src="assets/architecture.svg" /></a></p>
+<p>Looking closer at the internals:</p>
+<ol start="4">
+<li>
+<p>Within the container, we have a fastapi <a href="server/#swerex.server">Server</a> that transfers all request from the <a href="runtimes/#swerex.runtime.remote.RemoteRuntime"><code>RemoteRuntime</code></a> to the <a href="runtimes/#swerex.runtime.local.Runtime"><code>LocalRuntime</code></a>.
+   The <a href="runtimes/#swerex.runtime.local.Runtime"><code>LocalRuntime</code></a> has the exact same interface as the <a href="runtimes/#swerex.runtime.remote.RemoteRuntime"><code>RemoteRuntime</code> class</a> and it is what actually executes the commands.
+   In fact, if you want to run something locally (or your whole codebase runs in a sandboxed environment), you can just use the <a href="runtimes/#swerex.runtime.local.Runtime"><code>LocalRuntime</code></a> directly!
+   Both classes are absolutely interchangeable, in fact we even transfer any exceptions happening in the <a href="runtimes/#swerex.runtime.local.Runtime"><code>LocalRuntime</code></a> to the <a href="runtimes/#swerex.runtime.remote.RemoteRuntime"><code>RemoteRuntime</code></a> transparently,
+   so you can easily catch and ignore certain errors.</p>
+</li>
+<li>
+<p>The <a href="runtimes/#swerex.runtime.abstract.AbstractRuntime"><code>Runtime</code></a> class provides several methods for reading/writing files, an <a href="runtimes/#swerex.runtime.abstract.AbstractRuntime.execute"><code>execute</code> method</a> for running arbitrary commands, but the most important one is <a href="runtimes/#swerex.runtime.abstract.AbstractRuntime.run_in_session"><code>run_in_session</code></a>.
+   This method allows you to run a command in an existing shell session (or an interactive tool running inside of it) and return the output.
+   In fact, you can have multiple sessions open at the same time, running different commands and tools in parallel!</p>
+</li>
+</ol>
 
 
 
