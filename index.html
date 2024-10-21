@@ -412,6 +412,33 @@ Whether commands are executed locally or remotely in docker containers, on AWS, 
    In fact, you can have multiple sessions open at the same time, running different commands and tools in parallel!</p>
 </li>
 </ol>
+<p>Here's a simple example:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="kn">from</span> <span class="nn">swerex.deployment.local</span> <span class="kn">import</span> <span class="n">LocalDeployment</span>
+<span class="kn">from</span> <span class="nn">swerex.runtime.abstract</span> <span class="kn">import</span> <span class="n">Action</span> <span class="k">as</span> <span class="n">A</span>
+<span class="kn">from</span> <span class="nn">swerex.runtime.abstract</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">CloseSessionRequest</span><span class="p">,</span>
+    <span class="n">CreateSessionRequest</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">deployment</span> <span class="o">=</span> <span class="n">LocalDeployment</span><span class="p">()</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">deployment</span><span class="o">.</span><span class="n">start</span><span class="p">())</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">deployment</span><span class="o">.</span><span class="n">runtime</span>
+<span class="c1"># fmt: off</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">is_alive</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">create_session</span><span class="p">(</span><span class="n">CreateSessionRequest</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">run_in_session</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="s2">&quot;doesnexist&quot;</span><span class="p">,)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">run_in_session</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="s2">&quot;ls&quot;</span><span class="p">,)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">run_in_session</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span> <span class="n">is_interactive_command</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">expect</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;&gt;&gt;&gt; &quot;</span><span class="p">])))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">run_in_session</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="s2">&quot;print(&#39;hello world&#39;)&quot;</span><span class="p">,</span> <span class="n">is_interactive_command</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">expect</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;&gt;&gt;&gt; &quot;</span><span class="p">])))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">run_in_session</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="s2">&quot;quit()</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">is_interactive_quit</span><span class="o">=</span><span class="kc">True</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">run_in_session</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="s2">&quot;echo &#39;test&#39;&quot;</span><span class="p">,)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">run_in_session</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="s2">&quot;echo &#39;answer&#39;&quot;</span><span class="p">,)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">run_in_session</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="s2">&quot;doesnexist&quot;</span><span class="p">,)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">close_session</span><span class="p">(</span><span class="n">CloseSessionRequest</span><span class="p">()))</span>
+<span class="c1"># fmt: on</span>
+</code></pre></div>
 
 
 
