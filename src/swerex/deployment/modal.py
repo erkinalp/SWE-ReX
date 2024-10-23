@@ -102,7 +102,7 @@ class ModalDeployment(AbstractDeployment):
         self._container_timeout = container_timeout
         self._sandbox: modal.Sandbox | None = None
         self._port = port
-        self.logger = get_logger("deploy")
+        self.logger = get_logger("deploy")  # type: ignore
         self._app = modal.App.lookup("swe-rex", create_if_missing=True)
         self._user = _get_modal_user()
         self._runtime_timeout = runtime_timeout

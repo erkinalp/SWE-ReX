@@ -22,7 +22,7 @@ class DockerDeployment(AbstractDeployment):
             docker_args = []
         self._docker_args = docker_args
         self._container_name = None
-        self.logger = get_logger("deploy")
+        self.logger = get_logger("deploy")  # type: ignore
         self._runtime_timeout = 0.15
 
     def _get_container_name(self) -> str:

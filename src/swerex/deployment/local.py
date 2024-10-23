@@ -1,6 +1,7 @@
 from swerex.deployment.abstract import AbstractDeployment
 from swerex.runtime.abstract import IsAliveResponse
 from swerex.runtime.local import Runtime
+from swerex.utils.log import get_logger
 
 __all__ = ["LocalDeployment"]
 
@@ -11,6 +12,7 @@ class LocalDeployment(AbstractDeployment):
     ):
         self._runtime = None
         self._runtime_timeout = 0.15
+        self.logger = get_logger("deploy")  # type: ignore
 
     async def is_alive(self, *, timeout: float | None = None) -> IsAliveResponse:
         if self._runtime is None:

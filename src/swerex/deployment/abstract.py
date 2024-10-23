@@ -1,3 +1,4 @@
+import logging
 from abc import ABC, abstractmethod
 
 from swerex.runtime.abstract import AbstractRuntime, IsAliveResponse
@@ -11,6 +12,10 @@ class AbstractDeployment(ABC):
         """Checks if the runtime is alive. The return value can be
         tested with bool().
         """
+
+    @property
+    @abstractmethod
+    def logger(self) -> logging.Logger: ...
 
     @abstractmethod
     async def start(self, *args, **kwargs): ...
