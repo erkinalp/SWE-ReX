@@ -2137,57 +2137,6 @@
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Action</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;An action to run in a session.&quot;&quot;&quot;</span>
-
-    <span class="n">command</span><span class="p">:</span> <span class="nb">str</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The command to run.&quot;&quot;&quot;</span>
-
-    <span class="n">session</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The session to run the command in.&quot;&quot;&quot;</span>
-
-    <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The timeout for the command. None means no timeout.&quot;&quot;&quot;</span>
-
-    <span class="n">is_interactive_command</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;For a non-exiting command to an interactive program</span>
-<span class="sd">    (e.g., gdb), set this to True.&quot;&quot;&quot;</span>
-
-    <span class="n">is_interactive_quit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;This will disable checking for exit codes, since the command won&#39;t terminate.</span>
-<span class="sd">    If the command is something like &quot;quit&quot; and should terminate the</span>
-<span class="sd">    interactive program, set this to False.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">expect</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Outputs to expect in addition to the PS1&quot;&quot;&quot;</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
 
   <div class="doc doc-children">
@@ -2382,17 +2331,6 @@ This is the error message for those syntax errors.</p>
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">BashIncorrectSyntaxError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Before running a bash command, we check for syntax errors.</span>
-<span class="sd">    This is the error message for those syntax errors.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
     </div>
 
@@ -2421,13 +2359,6 @@ This is the error message for those syntax errors.</p>
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">131</span>
-<span class="normal">132</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CloseResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-    <span class="k">pass</span>
-</code></pre></div></td></tr></table></div>
-              </details>
     </div>
 
 </div>
@@ -2455,13 +2386,6 @@ This is the error message for those syntax errors.</p>
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">75</span>
-<span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CloseSessionRequest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-    <span class="n">session</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
 
   <div class="doc doc-children">
@@ -2527,13 +2451,6 @@ This is the error message for those syntax errors.</p>
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">79</span>
-<span class="normal">80</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CloseSessionResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-    <span class="k">pass</span>
-</code></pre></div></td></tr></table></div>
-              </details>
     </div>
 
 </div>
@@ -2563,37 +2480,6 @@ This is the error message for those syntax errors.</p>
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span>
-<span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span>
-<span class="normal">94</span>
-<span class="normal">95</span>
-<span class="normal">96</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A command to run as a subprocess.&quot;&quot;&quot;</span>
-
-    <span class="n">command</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The command to run. Should be a list of strings (recommended because</span>
-<span class="sd">    of automatic escaping of spaces etc.) unless you set `shell=True`</span>
-<span class="sd">    (i.e., exactly like with `subprocess.run()`).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The timeout for the command. None means no timeout.&quot;&quot;&quot;</span>
-
-    <span class="n">shell</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Same as the `subprocess.run()` `shell` argument.&quot;&quot;&quot;</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
 
   <div class="doc doc-children">
@@ -2725,17 +2611,6 @@ of automatic escaping of spaces etc.) unless you set <code>shell=True</code>
         </ul>
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CommandResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-    <span class="n">stdout</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">stderr</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">exit_code</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
 
   <div class="doc doc-children">
@@ -2844,11 +2719,6 @@ of automatic escaping of spaces etc.) unless you set <code>shell=True</code>
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">155</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CommandTimeoutError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span> <span class="o">...</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
     </div>
 
@@ -2877,27 +2747,6 @@ of automatic escaping of spaces etc.) unless you set <code>shell=True</code>
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CreateSessionRequest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-    <span class="n">session</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The name of the session to create.&quot;&quot;&quot;</span>
-
-    <span class="n">startup_source</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Source the following files before running commands.</span>
-<span class="sd">    The reason this gets a special treatment is that these files</span>
-<span class="sd">    often overwrite PS1, which we need to reset.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
 
   <div class="doc doc-children">
@@ -2998,15 +2847,6 @@ often overwrite PS1, which we need to reset.</p>
         </ul>
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CreateSessionResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-    <span class="n">output</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Output from starting the session.&quot;&quot;&quot;</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
 
   <div class="doc doc-children">
@@ -3087,35 +2927,6 @@ often overwrite PS1, which we need to reset.</p>
         </ul>
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">IsAliveResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Response to the is_alive request.</span>
-
-<span class="sd">    You can test the result with bool().</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">is_alive</span><span class="p">:</span> <span class="nb">bool</span>
-
-    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Error message if is_alive is False.&quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_alive</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
 
   <div class="doc doc-children">
@@ -3205,11 +3016,6 @@ often overwrite PS1, which we need to reset.</p>
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">158</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NoExitCodeError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span> <span class="o">...</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
     </div>
 
@@ -3257,27 +3063,6 @@ often overwrite PS1, which we need to reset.</p>
         </ul>
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Observation</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-    <span class="n">output</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">exit_code</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">failure_reason</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-
-    <span class="n">expect_string</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Which of the expect strings was matched to terminate the command.</span>
-<span class="sd">    Empty string if the command timed out etc.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
 
   <div class="doc doc-children">
@@ -3408,13 +3193,6 @@ Empty string if the command timed out etc.</p>
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">105</span>
-<span class="normal">106</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ReadFileRequest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
 
   <div class="doc doc-children">
@@ -3486,13 +3264,6 @@ Empty string if the command timed out etc.</p>
         </ul>
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">109</span>
-<span class="normal">110</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ReadFileResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-    <span class="n">content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
 
   <div class="doc doc-children">
@@ -3559,11 +3330,6 @@ Empty string if the command timed out etc.</p>
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">164</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">SessionDoesNotExistError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span> <span class="o">...</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
     </div>
 
@@ -3594,11 +3360,6 @@ Empty string if the command timed out etc.</p>
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">161</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">SessionExistsError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span> <span class="o">...</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
     </div>
 
@@ -3629,11 +3390,6 @@ Empty string if the command timed out etc.</p>
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">143</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">SweRexception</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span> <span class="o">...</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
     </div>
 
@@ -3664,11 +3420,6 @@ Empty string if the command timed out etc.</p>
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">152</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">UninitializedShellError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span> <span class="o">...</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
     </div>
 
@@ -3708,15 +3459,6 @@ Empty string if the command timed out etc.</p>
         </ul>
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">UploadRequest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-    <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">target_path</span><span class="p">:</span> <span class="nb">str</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
 
   <div class="doc doc-children">
@@ -3802,13 +3544,6 @@ Empty string if the command timed out etc.</p>
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">127</span>
-<span class="normal">128</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">UploadResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-    <span class="k">pass</span>
-</code></pre></div></td></tr></table></div>
-              </details>
     </div>
 
 </div>
@@ -3836,15 +3571,6 @@ Empty string if the command timed out etc.</p>
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">WriteFileRequest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-    <span class="n">content</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span>
-</code></pre></div></td></tr></table></div>
-              </details>
 
 
   <div class="doc doc-children">
@@ -3930,13 +3656,6 @@ Empty string if the command timed out etc.</p>
 
 
 
-              <details class="quote">
-                <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">118</span>
-<span class="normal">119</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">WriteFileResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-    <span class="k">pass</span>
-</code></pre></div></td></tr></table></div>
-              </details>
     </div>
 
 </div>
