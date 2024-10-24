@@ -2384,10 +2384,10 @@ This is the error message for those syntax errors.</p>
 
               <details class="quote">
                 <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">BashIncorrectSyntaxError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">BashIncorrectSyntaxError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Before running a bash command, we check for syntax errors.</span>
 <span class="sd">    This is the error message for those syntax errors.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -2846,7 +2846,7 @@ of automatic escaping of spaces etc.) unless you set <code>shell=True</code>
 
               <details class="quote">
                 <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">153</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CommandTimeoutError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span> <span class="o">...</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">155</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">CommandTimeoutError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span> <span class="o">...</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -3207,7 +3207,7 @@ often overwrite PS1, which we need to reset.</p>
 
               <details class="quote">
                 <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">156</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NoExitCodeError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span> <span class="o">...</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">158</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NoExitCodeError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span> <span class="o">...</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -3561,7 +3561,7 @@ Empty string if the command timed out etc.</p>
 
               <details class="quote">
                 <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">162</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">SessionDoesNotExistError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span> <span class="o">...</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">164</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">SessionDoesNotExistError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span> <span class="o">...</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -3596,7 +3596,7 @@ Empty string if the command timed out etc.</p>
 
               <details class="quote">
                 <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">159</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">SessionExistsError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span> <span class="o">...</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">161</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">SessionExistsError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span> <span class="o">...</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -3631,7 +3631,7 @@ Empty string if the command timed out etc.</p>
 
               <details class="quote">
                 <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">141</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">SweRexception</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span> <span class="o">...</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">143</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">SweRexception</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span> <span class="o">...</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -3666,7 +3666,7 @@ Empty string if the command timed out etc.</p>
 
               <details class="quote">
                 <summary>Source code in <code>swerex/runtime/abstract.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">150</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">UninitializedShellError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span> <span class="o">...</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">152</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">UninitializedShellError</span><span class="p">(</span><span class="n">SweRexception</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span> <span class="o">...</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
