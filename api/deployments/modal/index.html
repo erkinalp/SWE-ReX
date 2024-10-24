@@ -1041,8 +1041,7 @@
 
               <details class="quote">
                 <summary>Source code in <code>swerex/deployment/modal.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 91</span>
-<span class="normal"> 92</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 92</span>
 <span class="normal"> 93</span>
 <span class="normal"> 94</span>
 <span class="normal"> 95</span>
@@ -1161,13 +1160,17 @@
 <span class="normal">208</span>
 <span class="normal">209</span>
 <span class="normal">210</span>
-<span class="normal">211</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ModalDeployment</span><span class="p">(</span><span class="n">AbstractDeployment</span><span class="p">):</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ModalDeployment</span><span class="p">(</span><span class="n">AbstractDeployment</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">image</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">modal</span><span class="o">.</span><span class="n">Image</span> <span class="o">|</span> <span class="n">PurePath</span><span class="p">,</span>
         <span class="n">container_timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1800</span><span class="p">,</span>
         <span class="n">runtime_timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">modal_args</span><span class="p">,</span>
+        <span class="n">modal_sandbox_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Deployment for modal.com. The deployment will only start when the</span>
 <span class="sd">        `start` method is being called.</span>
@@ -1180,7 +1183,7 @@
 <span class="sd">                4. ECR image name (e.g. `123456789012.dkr.ecr.us-east-1.amazonaws.com/my-image:tag`)</span>
 <span class="sd">            container_timeout:</span>
 <span class="sd">            runtime_timeout:</span>
-<span class="sd">            modal_args: Additional arguments to pass to the modal app</span>
+<span class="sd">            modal_sandbox_kwargs: Additional arguments to pass to `modal.Sandbox.create`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_image</span> <span class="o">=</span> <span class="n">_ImageBuilder</span><span class="p">()</span><span class="o">.</span><span class="n">auto</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_runtime</span><span class="p">:</span> <span class="n">RemoteRuntime</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1191,7 +1194,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_app</span> <span class="o">=</span> <span class="n">modal</span><span class="o">.</span><span class="n">App</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="s2">&quot;swe-rex&quot;</span><span class="p">,</span> <span class="n">create_if_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_user</span> <span class="o">=</span> <span class="n">_get_modal_user</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_runtime_timeout</span> <span class="o">=</span> <span class="n">runtime_timeout</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_modal_args</span> <span class="o">=</span> <span class="n">modal_args</span>
+        <span class="k">if</span> <span class="n">modal_sandbox_kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">modal_sandbox_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modal_kwargs</span> <span class="o">=</span> <span class="n">modal_sandbox_kwargs</span>
 
     <span class="k">async</span> <span class="k">def</span> <span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IsAliveResponse</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runtime</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sandbox</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1234,6 +1239,7 @@
             <span class="n">timeout</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_container_timeout</span><span class="p">),</span>
             <span class="n">unencrypted_ports</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="p">],</span>
             <span class="n">app</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="p">,</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_modal_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">tunnel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sandbox</span><span class="o">.</span><span class="n">tunnels</span><span class="p">()[</span><span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sandbox (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_sandbox</span><span class="o">.</span><span class="n">object_id</span><span class="si">}</span><span class="s2">) created in </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t0</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
@@ -1439,7 +1445,7 @@
 
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="fm">__init__</span><span class="p">(</span><span class="nf">image</span><span class="p">:</span> <span class="n">str</span> <span class="o">|</span> <span class="n"><span title="modal.Image">Image</span></span> <span class="o">|</span> <span class="n"><span title="pathlib.PurePath">PurePath</span></span><span class="p">,</span> <span class="n">container_timeout</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="mi">1800</span><span class="p">,</span> <span class="n">runtime_timeout</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> <span class="o">**</span><span class="n">modal_args</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="fm">__init__</span><span class="p">(</span><span class="nf">image</span><span class="p">:</span> <span class="n">str</span> <span class="o">|</span> <span class="n"><span title="modal.Image">Image</span></span> <span class="o">|</span> <span class="n"><span title="pathlib.PurePath">PurePath</span></span><span class="p">,</span> <span class="n">container_timeout</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="mi">1800</span><span class="p">,</span> <span class="n">runtime_timeout</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">modal_sandbox_kwargs</span><span class="p">:</span> <span class="n">dict</span><span class="p">[</span><span class="n">str</span><span class="p">,</span> <span class="n"><span title="typing.Any">Any</span></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1513,17 +1519,18 @@
           </tr>
           <tr class="doc-section-item">
             <td>
-                <code>modal_args</code>
+                <code>modal_sandbox_kwargs</code>
             </td>
             <td>
+                  <code>dict[str, <span title="typing.Any">Any</span>] | None</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Additional arguments to pass to the modal app</p>
+                <p>Additional arguments to pass to <code>modal.Sandbox.create</code></p>
               </div>
             </td>
             <td>
-                  <code>{}</code>
+                  <code>None</code>
             </td>
           </tr>
       </tbody>
@@ -1531,8 +1538,7 @@
 
             <details class="quote">
               <summary>Source code in <code>swerex/deployment/modal.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 92</span>
-<span class="normal"> 93</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 93</span>
 <span class="normal"> 94</span>
 <span class="normal"> 95</span>
 <span class="normal"> 96</span>
@@ -1560,12 +1566,15 @@
 <span class="normal">118</span>
 <span class="normal">119</span>
 <span class="normal">120</span>
-<span class="normal">121</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">image</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">modal</span><span class="o">.</span><span class="n">Image</span> <span class="o">|</span> <span class="n">PurePath</span><span class="p">,</span>
     <span class="n">container_timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1800</span><span class="p">,</span>
     <span class="n">runtime_timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">modal_args</span><span class="p">,</span>
+    <span class="n">modal_sandbox_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Deployment for modal.com. The deployment will only start when the</span>
 <span class="sd">    `start` method is being called.</span>
@@ -1578,7 +1587,7 @@
 <span class="sd">            4. ECR image name (e.g. `123456789012.dkr.ecr.us-east-1.amazonaws.com/my-image:tag`)</span>
 <span class="sd">        container_timeout:</span>
 <span class="sd">        runtime_timeout:</span>
-<span class="sd">        modal_args: Additional arguments to pass to the modal app</span>
+<span class="sd">        modal_sandbox_kwargs: Additional arguments to pass to `modal.Sandbox.create`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_image</span> <span class="o">=</span> <span class="n">_ImageBuilder</span><span class="p">()</span><span class="o">.</span><span class="n">auto</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_runtime</span><span class="p">:</span> <span class="n">RemoteRuntime</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1589,7 +1598,9 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">_app</span> <span class="o">=</span> <span class="n">modal</span><span class="o">.</span><span class="n">App</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="s2">&quot;swe-rex&quot;</span><span class="p">,</span> <span class="n">create_if_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_user</span> <span class="o">=</span> <span class="n">_get_modal_user</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_runtime_timeout</span> <span class="o">=</span> <span class="n">runtime_timeout</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_modal_args</span> <span class="o">=</span> <span class="n">modal_args</span>
+    <span class="k">if</span> <span class="n">modal_sandbox_kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">modal_sandbox_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_modal_kwargs</span> <span class="o">=</span> <span class="n">modal_sandbox_kwargs</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -1613,9 +1624,9 @@
 
             <details class="quote">
               <summary>Source code in <code>swerex/deployment/modal.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_modal_log_url</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_modal_log_url</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns URL to modal logs&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;https://modal.com/apps/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_user</span><span class="si">}</span><span class="s2">/main/deployed/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">?activeTab=logs&amp;taskId=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sandbox</span><span class="o">.</span><span class="n">_get_task_id</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div></td></tr></table></div>
@@ -1643,16 +1654,16 @@
 
             <details class="quote">
               <summary>Source code in <code>swerex/deployment/modal.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">126</span>
 <span class="normal">127</span>
 <span class="normal">128</span>
 <span class="normal">129</span>
 <span class="normal">130</span>
 <span class="normal">131</span>
-<span class="normal">132</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IsAliveResponse</span><span class="p">:</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IsAliveResponse</span><span class="p">:</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runtime</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sandbox</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">DeploymentNotStartedError</span><span class="p">()</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sandbox</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1687,10 +1698,7 @@
 
             <details class="quote">
               <summary>Source code in <code>swerex/deployment/modal.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">152</span>
 <span class="normal">153</span>
 <span class="normal">154</span>
 <span class="normal">155</span>
@@ -1712,7 +1720,11 @@
 <span class="normal">171</span>
 <span class="normal">172</span>
 <span class="normal">173</span>
-<span class="normal">174</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">start</span><span class="p">(</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">start</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span>
@@ -1727,6 +1739,7 @@
         <span class="n">timeout</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_container_timeout</span><span class="p">),</span>
         <span class="n">unencrypted_ports</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="p">],</span>
         <span class="n">app</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="p">,</span>
+        <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_modal_kwargs</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">tunnel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sandbox</span><span class="o">.</span><span class="n">tunnels</span><span class="p">()[</span><span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sandbox (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_sandbox</span><span class="o">.</span><span class="n">object_id</span><span class="si">}</span><span class="s2">) created in </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t0</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
@@ -1763,14 +1776,14 @@
 
             <details class="quote">
               <summary>Source code in <code>swerex/deployment/modal.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span>
-<span class="normal">179</span>
-<span class="normal">180</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">180</span>
 <span class="normal">181</span>
 <span class="normal">182</span>
-<span class="normal">183</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runtime</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runtime</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_runtime</span> <span class="o">=</span> <span class="kc">None</span>
