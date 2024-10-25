@@ -996,7 +996,7 @@
 
 
 </h2>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">DockerDeployment</span><span class="p">(</span><span class="n">image_name</span><span class="p">:</span> <span class="n">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="n">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">docker_args</span><span class="p">:</span> <span class="n">list</span><span class="p">[</span><span class="n">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">DockerDeployment</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="n">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">docker_args</span><span class="p">:</span> <span class="n">list</span><span class="p">[</span><span class="n">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents first">
@@ -1020,7 +1020,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                <code>image_name</code>
+                <code>image</code>
             </td>
             <td>
                   <code>str</code>
@@ -1093,15 +1093,15 @@
 <span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
-<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">docker_args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">docker_args</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Deployment to local docker image.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        image_name: The name of the docker image to use.</span>
+<span class="sd">        image: The name of the docker image to use.</span>
 <span class="sd">        port: The port that the docker container connects to. If None, a free port is found.</span>
 <span class="sd">        docker_args: Additional arguments to pass to the docker run command.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_image_name</span> <span class="o">=</span> <span class="n">image_name</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_image_name</span> <span class="o">=</span> <span class="n">image</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_runtime</span><span class="p">:</span> <span class="n">RemoteRuntime</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_port</span> <span class="o">=</span> <span class="n">port</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_container_process</span> <span class="o">=</span> <span class="kc">None</span>
