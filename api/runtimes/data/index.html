@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../assets/swerex_no_text.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
@@ -2596,6 +2596,37 @@
 
     
 
+        <p>Fields:</p>
+        <ul>
+            <li>
+              <code><a class="autorefs autorefs-internal" title="swerex.runtime.abstract.BashAction.command" href="#swerex.runtime.abstract.BashAction.command">command</a></code>
+                (<code>str</code>)
+            </li>
+            <li>
+              <code><a class="autorefs autorefs-internal" title="swerex.runtime.abstract.BashAction.session" href="#swerex.runtime.abstract.BashAction.session">session</a></code>
+                (<code>str</code>)
+            </li>
+            <li>
+              <code><a class="autorefs autorefs-internal" title="swerex.runtime.abstract.BashAction.timeout" href="#swerex.runtime.abstract.BashAction.timeout">timeout</a></code>
+                (<code>float | None</code>)
+            </li>
+            <li>
+              <code><a class="autorefs autorefs-internal" title="swerex.runtime.abstract.BashAction.is_interactive_command" href="#swerex.runtime.abstract.BashAction.is_interactive_command">is_interactive_command</a></code>
+                (<code>bool</code>)
+            </li>
+            <li>
+              <code><a class="autorefs autorefs-internal" title="swerex.runtime.abstract.BashAction.is_interactive_quit" href="#swerex.runtime.abstract.BashAction.is_interactive_quit">is_interactive_quit</a></code>
+                (<code>bool</code>)
+            </li>
+            <li>
+              <code><a class="autorefs autorefs-internal" title="swerex.runtime.abstract.BashAction.expect" href="#swerex.runtime.abstract.BashAction.expect">expect</a></code>
+                (<code>list[str]</code>)
+            </li>
+            <li>
+              <code><a class="autorefs autorefs-internal" title="swerex.runtime.abstract.BashAction.session_type" href="#swerex.runtime.abstract.BashAction.session_type">session_type</a></code>
+                (<code><span title="typing.Literal">Literal</span>[&#39;bash&#39;]</code>)
+            </li>
+        </ul>
 
 
 
@@ -2617,7 +2648,7 @@
 
 
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-pydantic-field"><code>pydantic-field</code></small>
   </span>
 
 </h3>
@@ -2640,8 +2671,7 @@
 
 
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-pydantic-field"><code>pydantic-field</code></small>
   </span>
 
 </h3>
@@ -2664,8 +2694,7 @@
 
 
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-pydantic-field"><code>pydantic-field</code></small>
   </span>
 
 </h3>
@@ -2689,8 +2718,7 @@
 
 
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-pydantic-field"><code>pydantic-field</code></small>
   </span>
 
 </h3>
@@ -2715,8 +2743,7 @@ interactive program, set this to False.</p>
 
 
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-pydantic-field"><code>pydantic-field</code></small>
   </span>
 
 </h3>
@@ -2739,8 +2766,7 @@ interactive program, set this to False.</p>
 
 
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-pydantic-field"><code>pydantic-field</code></small>
   </span>
 
 </h3>
@@ -2761,8 +2787,7 @@ interactive program, set this to False.</p>
 
 
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-pydantic-field"><code>pydantic-field</code></small>
   </span>
 
 </h3>
@@ -3210,6 +3235,21 @@ Empty string if the command timed out etc.</p>
 
     
 
+        <p>Fields:</p>
+        <ul>
+            <li>
+              <code><a class="autorefs autorefs-internal" title="swerex.runtime.abstract.Command.command" href="#swerex.runtime.abstract.Command.command">command</a></code>
+                (<code>str | list[str]</code>)
+            </li>
+            <li>
+              <code><a class="autorefs autorefs-internal" title="swerex.runtime.abstract.Command.timeout" href="#swerex.runtime.abstract.Command.timeout">timeout</a></code>
+                (<code>float | None</code>)
+            </li>
+            <li>
+              <code><a class="autorefs autorefs-internal" title="swerex.runtime.abstract.Command.shell" href="#swerex.runtime.abstract.Command.shell">shell</a></code>
+                (<code>bool</code>)
+            </li>
+        </ul>
 
 
 
@@ -3231,7 +3271,7 @@ Empty string if the command timed out etc.</p>
 
 
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-pydantic-field"><code>pydantic-field</code></small>
   </span>
 
 </h3>
@@ -3256,8 +3296,7 @@ of automatic escaping of spaces etc.) unless you set <code>shell=True</code>
 
 
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-pydantic-field"><code>pydantic-field</code></small>
   </span>
 
 </h3>
@@ -3280,8 +3319,7 @@ of automatic escaping of spaces etc.) unless you set <code>shell=True</code>
 
 
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-pydantic-field"><code>pydantic-field</code></small>
   </span>
 
 </h3>
@@ -3831,6 +3869,13 @@ often overwrite PS1, which we need to reset.</p>
 
     
 
+        <p>Fields:</p>
+        <ul>
+            <li>
+              <code><a class="autorefs autorefs-internal" title="swerex.runtime.abstract.ReadFileRequest.path" href="#swerex.runtime.abstract.ReadFileRequest.path">path</a></code>
+                (<code>str</code>)
+            </li>
+        </ul>
 
 
 
@@ -3852,7 +3897,7 @@ often overwrite PS1, which we need to reset.</p>
 
 
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-pydantic-field"><code>pydantic-field</code></small>
   </span>
 
 </h3>
@@ -4209,6 +4254,17 @@ often overwrite PS1, which we need to reset.</p>
 
     
 
+        <p>Fields:</p>
+        <ul>
+            <li>
+              <code><a class="autorefs autorefs-internal" title="swerex.runtime.abstract.WriteFileRequest.content" href="#swerex.runtime.abstract.WriteFileRequest.content">content</a></code>
+                (<code>str</code>)
+            </li>
+            <li>
+              <code><a class="autorefs autorefs-internal" title="swerex.runtime.abstract.WriteFileRequest.path" href="#swerex.runtime.abstract.WriteFileRequest.path">path</a></code>
+                (<code>str</code>)
+            </li>
+        </ul>
 
 
 
@@ -4230,7 +4286,7 @@ often overwrite PS1, which we need to reset.</p>
 
 
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-pydantic-field"><code>pydantic-field</code></small>
   </span>
 
 </h3>
@@ -4251,7 +4307,7 @@ often overwrite PS1, which we need to reset.</p>
 
 
   <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+      <small class="doc doc-label doc-label-pydantic-field"><code>pydantic-field</code></small>
   </span>
 
 </h3>
