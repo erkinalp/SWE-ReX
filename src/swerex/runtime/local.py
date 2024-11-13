@@ -142,14 +142,7 @@ class BashSession(Session):
             encoding="utf-8",
             echo=False,
         )
-        time.sleep(0.1)
-        self.shell.sendline(f"echo '{self._UNIQUE_STRING}'")
-        try:
-            self.shell.expect(self._UNIQUE_STRING, timeout=1)
-        except pexpect.TIMEOUT:
-            msg = "timeout while initializing shell"
-            raise pexpect.TIMEOUT(msg)
-        output = self.shell.before
+        time.sleep(0.25)
         cmds = [f"source {path}" for path in self.request.startup_source]
         cmds += [
             f"export PS1='{self._ps1}'",
@@ -161,9 +154,9 @@ class BashSession(Session):
         try:
             self.shell.expect(self._ps1, timeout=1)
         except pexpect.TIMEOUT:
-            msg = "timeout while setting PS1"
+            msg = "timeout while sourcing startup files and setting PS1"
             raise pexpect.TIMEOUT(msg)
-        output += "\n---\n" + _strip_control_chars(self.shell.before)  # type: ignore
+        output = "\n---\n" + _strip_control_chars(self.shell.before)  # type: ignore
         return CreateBashSessionResponse(output=output)
 
     async def run(self, action: BashAction) -> BashObservation:
