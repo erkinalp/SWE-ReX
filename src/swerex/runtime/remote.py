@@ -8,7 +8,7 @@ from typing import Any, Self
 import requests
 from pydantic import BaseModel
 
-from swerex.exceptions import SweRexception
+from swerex.exceptions import SWEReXception
 from swerex.runtime.abstract import (
     AbstractRuntime,
     Action,
@@ -83,13 +83,13 @@ class RemoteRuntime(AbstractRuntime):
             exception = getattr(sys.modules[module], exc_name)
         except AttributeError:
             self.logger.error(f"Unknown exception class: {exc_transfer.class_path!r}")
-            raise SweRexception(exc_transfer.message) from None
+            raise SWEReXception(exc_transfer.message) from None
         raise exception(exc_transfer.message) from None
 
     def _handle_response_errors(self, response: requests.Response) -> None:
         """Raise exceptions found in the request response."""
         if response.status_code == 511:
-            exc_transfer = _ExceptionTransfer(**response.json()["swerexception"])
+            exc_transfer = _ExceptionTransfer(**response.json()["SWEReXCeption"])
             self._handle_transfer_exception(exc_transfer)
         response.raise_for_status()
 
@@ -106,7 +106,7 @@ class RemoteRuntime(AbstractRuntime):
             if response.status_code == 200:
                 return IsAliveResponse(**response.json())
             elif response.status_code == 511:
-                exc_transfer = _ExceptionTransfer(**response.json()["swerexception"])
+                exc_transfer = _ExceptionTransfer(**response.json()["SWEReXCeption"])
                 self._handle_transfer_exception(exc_transfer)
             msg = (
                 f"Status code {response.status_code} from {self._api_url}/is_alive. "

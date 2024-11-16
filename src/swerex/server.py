@@ -57,7 +57,7 @@ async def exception_handler(request: Request, exc: Exception):
     _exc = _ExceptionTransfer(
         message=str(exc), class_path=type(exc).__module__ + "." + type(exc).__name__, traceback=traceback.format_exc()
     )
-    return JSONResponse(status_code=511, content={"swerexception": _exc.model_dump()})
+    return JSONResponse(status_code=511, content={"SWEReXCeption": _exc.model_dump()})
 
 
 @app.get("/")
