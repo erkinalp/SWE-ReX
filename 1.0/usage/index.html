@@ -31,6 +31,12 @@
       
       
 
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-12 6 6-6-6-6-1.4 1.4 4.6 4.6-4.6 4.6z"/></svg>');}</style>
+
 
     
     
@@ -1066,7 +1072,12 @@
 <h2 id="hello-world-from-your-own-machine">Hello world from your own machine</h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This will run commands on your local machine <em>without</em> any sandboxing, so don't <code>rm -rf /</code>!</p>
+<p>This first example will run commands on your local machine <em>without</em> any sandboxing, so don't <code>rm -rf /</code>!
+Wait for the next example to see how to put it in a sandbox ;) </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SWE-ReX is inherently asynchronous, so you might want to take a quick look at python's <code>asyncio</code> module before continuing (or click the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 12a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-12 6 6-6-6-6-1.4 1.4 4.6 4.6-4.6 4.6z"/></svg></span> icons in the next example).</p>
 </div>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">asyncio</span>
 <span class="kn">from</span> <span class="nn">swerex.deployment.local</span> <span class="kn">import</span> <span class="n">LocalDeployment</span>
@@ -1075,9 +1086,11 @@
 <span class="n">deployment</span> <span class="o">=</span> <span class="n">LocalDeployment</span><span class="p">()</span>
 
 <span class="k">async</span> <span class="k">def</span> <span class="nf">run_some_stuff</span><span class="p">(</span><span class="n">deployment</span><span class="p">):</span>
-    <span class="k">await</span> <span class="n">deployment</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Spoiler: This function will work with any deployment.&quot;&quot;&quot;</span>
+    <span class="k">await</span> <span class="n">deployment</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>  <span class="c1"># (1)!</span>
     <span class="n">runtime</span> <span class="o">=</span> <span class="n">deployment</span><span class="o">.</span><span class="n">runtime</span>
-    <span class="c1"># Issue a few one-off commands</span>
+
+    <span class="c1"># Issue a few one-off commands, similar to `subprocess.run()`</span>
     <span class="nb">print</span><span class="p">(</span><span class="k">await</span> <span class="n">runtime</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Command</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;echo&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello, world!&quot;</span><span class="p">])))</span>
 
     <span class="c1"># Create a bash session</span>
@@ -1088,10 +1101,21 @@
     <span class="nb">print</span><span class="p">(</span><span class="k">await</span> <span class="n">runtime</span><span class="o">.</span><span class="n">run_in_session</span><span class="p">(</span><span class="n">BashAction</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="s2">&quot;export MYVAR=&#39;test&#39;&quot;</span><span class="p">)))</span>
     <span class="nb">print</span><span class="p">(</span><span class="k">await</span> <span class="n">runtime</span><span class="o">.</span><span class="n">run_in_session</span><span class="p">(</span><span class="n">BashAction</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="s2">&quot;echo $MYVAR&quot;</span><span class="p">)))</span>
 
-    <span class="k">await</span> <span class="n">deployment</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="k">await</span> <span class="n">deployment</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>  <span class="c1"># (2)!</span>
 
-<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">run_some_stuff</span><span class="p">(</span><span class="n">deployment</span><span class="p">))</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">run_some_stuff</span><span class="p">(</span><span class="n">deployment</span><span class="p">))</span>  <span class="c1"># (3)!</span>
 </code></pre></div>
+<ol>
+<li>
+<p>In the case of a <code>LocalDeployment</code>, this won't do much. However, if you run in a docker container or similar, this will for example pull the container image and start the runtime in it. The <code>await</code> will wait until the runtime has been started.</p>
+</li>
+<li>
+<p>Again, this won't do much in the case of a <code>LocalDeployment</code>, but it will kill docker containers or similar when used with the appropriate deployment.</p>
+</li>
+<li>
+<p>Since this is an async function, we need to call it with <code>asyncio.run()</code> when not running in another async function.</p>
+</li>
+</ol>
 <h2 id="our-first-remote-run">Our first "remote" run</h2>
 <p>The best thing about SWE-ReX is that you can switch between deployments without any changes to your code!
 We will simply use the same <code>run_some_stuff</code> function but change the deployment to a <code>DockerDeployment</code>:</p>
