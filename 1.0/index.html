@@ -283,17 +283,6 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    SWE-ReX
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="." class="md-nav__link md-nav__link--active">
         
   
@@ -303,34 +292,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#why-swe-rex" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why SWE-ReX?
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -813,23 +774,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#why-swe-rex" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why SWE-ReX?
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -857,17 +801,26 @@
 </div>
 
 <p>SWE-ReX is a runtime interface for interacting with sandboxed shell environments, allowing you to effortlessly let your AI agent run <em>any command</em> on <em>any environment</em>.</p>
-<p>Whether commands are executed locally or remotely in <a href="https://www.docker.com/">Docker</a> containers, <a href="https://aws.amazon.com/fargate/">AWS remote machines</a>, <a href="https://modal.com/">Modal</a>, or something else, your agent code remains the same.
+<p>Whether commands are executed locally or remotely in Docker containers, AWS remote machines, Modal, or something else, your agent code remains the same.
 Running 100 agents in parallel? No problem either!</p>
-<h2 id="why-swe-rex">Why SWE-ReX?</h2>
-<p>We built SWE-ReX to help you focus on developing and evaluating your agent, not on infrastructure.</p>
-<p>SWE-ReX came out of our experiences with <a href="https://swe-agent.com">SWE-agent</a>.
-With SWE-ReX, we</p>
+<p>Specifically, SWE-ReX allows your agent to</p>
 <ul>
-<li>Support fast, massively parallel agent runs (which made evaluating on large benchmarks a breeze).</li>
-<li>Support running commands on machines without Docker or to support non-Linux machines.</li>
-<li>Disentangle agent logic from infrastructure concerns, making SWE-agent more stable and easier to maintain.</li>
+<li>✅ <strong>Interact with running shell sessions</strong>. SWE-ReX will recognize when commands are finished, extract the output and exit code and return them to your agent.</li>
+<li>✅ Let your agent use <strong>interactive command line tools</strong> like <code>ipython</code>, <code>gdb</code> or more in the shell.</li>
+<li>✅ Interact with <strong>multiple such shell sessions in parallel</strong>, similar to how humans can have a shell, ipython, gdb, etc. all running at the same time.</li>
 </ul>
+<p>We built SWE-ReX to help you focus on developing and evaluating your agent, not on infrastructure.</p>
+<p>SWE-ReX came out of our experiences with <a href="https://swe-agent.com">SWE-agent</a> and <a href="https://enigma-agent.com">SWE-agent enigma</a>.
+Using SWE-ReX, we</p>
+<ul>
+<li>🦖 Support <strong>fast, massively parallel</strong> agent runs (which made evaluating on large benchmarks a breeze).</li>
+<li>🦖 Support a <strong>broad range of platforms</strong>, including non-Linux machines without Docker.</li>
+<li>🦖 <strong>Disentangle agent logic from infrastructure concerns</strong>, making SWE-agent more stable and easier to maintain.</li>
+</ul>
+<figure>
+<a class="glightbox" href="assets/swerex30.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="SWE-ReX in action" src="assets/swerex30.png" style="max-width: 500px; border-radius: 10px;" /></a>
+<figcaption>SWE-Agent running with SWE-ReX on 30 SWE-bench instances</figcaption>
+</figure>
 
 
 
