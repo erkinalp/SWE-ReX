@@ -861,14 +861,13 @@
 Running 100 agents in parallel? No problem either!</p>
 <h2 id="why-swe-rex">Why SWE-ReX?</h2>
 <p>We built SWE-ReX to help you focus on developing and evaluating your agent, not on infrastructure.</p>
-<p>SWE-ReX came out of our experiences with <a href="https://swe-agent.com">SWE-agent</a>, which executed agent commands in a bash session running in a Docker container. 
-However, this</p>
+<p>SWE-ReX came out of our experiences with <a href="https://swe-agent.com">SWE-agent</a>.
+With SWE-ReX, we</p>
 <ul>
-<li>Introduced a lot of complexity to the codebase, because interacting with running bash sessions is hard, especially when adding interactive commands to the agent.</li>
-<li>Made it hard to run commands on machines without Docker or to support non-Linux machines.</li>
-<li>Made it hard to run multiple agents in parallel (which made evaluating on large benchmarks a pain).</li>
+<li>Support fast, massively parallel agent runs (which made evaluating on large benchmarks a breeze).</li>
+<li>Support running commands on machines without Docker or to support non-Linux machines.</li>
+<li>Disentangle agent logic from infrastructure concerns, making SWE-agent more stable and easier to maintain.</li>
 </ul>
-<p>By separate out our most annoying infrastructure parts to SWE-ReX, we made SWE-agent faster, more stable, and easier to maintain.</p>
 
 
 
