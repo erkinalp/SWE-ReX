@@ -309,9 +309,31 @@ class BashSession(Session):
             expect_strings = action.expect + [self._ps1]
         else:
             expect_strings = [self._UNIQUE_STRING]
+
+        # Use no_output_timeout if specified and no output is received
+        timeout = action.timeout
         try:
-            expect_index = self.shell.expect(expect_strings, timeout=action.timeout)  # type: ignore
-            matched_expect_string = expect_strings[expect_index]
+            # First try with no_output_timeout if specified
+            if action.no_output_timeout is not None:
+                try:
+                    expect_index = self.shell.expect(expect_strings, timeout=action.no_output_timeout)  # type: ignore
+                    matched_expect_string = expect_strings[expect_index]
+                except pexpect.TIMEOUT:
+                    # No output received within no_output_timeout, check if there's any output
+                    if not self.shell.before.strip():  # type: ignore
+                        msg = f"no output received after {action.no_output_timeout} seconds while running command {action.command!r}"
+                        raise CommandTimeoutError(msg)
+                    # There is some output, continue with regular timeout
+                    timeout = action.timeout - action.no_output_timeout if action.timeout else None
+                    if timeout is not None and timeout > 0:
+                        expect_index = self.shell.expect(expect_strings, timeout=timeout)  # type: ignore
+                        matched_expect_string = expect_strings[expect_index]
+                    else:
+                        raise CommandTimeoutError(f"timeout after {action.timeout} seconds while running command {action.command!r}")
+            else:
+                # Use regular timeout
+                expect_index = self.shell.expect(expect_strings, timeout=action.timeout)  # type: ignore
+                matched_expect_string = expect_strings[expect_index]
         except pexpect.TIMEOUT as e:
             partial_output = _strip_control_chars(self.shell.before).strip()  # type: ignore
             msg = f"timeout after {action.timeout} seconds while running command {action.command!r}"
