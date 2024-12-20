@@ -303,7 +303,7 @@ class BashSession(Session):
             action.command += f"\n TMPEXITCODE=$? ; sleep 0.1; echo '{self._UNIQUE_STRING}' ; (exit $TMPEXITCODE)"
             fallback_terminator = True
         else:
-            action.command = " ; ".join(individual_commands)
+            action.command = " ; ".join(f"{{ {cmd}; }}" for cmd in individual_commands)
         self.shell.sendline(action.command)
         if not fallback_terminator:
             expect_strings = action.expect + [self._ps1]
